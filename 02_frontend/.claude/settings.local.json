@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//d P:/MEBox/**)",
+      "Bash(npm run dev)"
+    ]
+  }
+}

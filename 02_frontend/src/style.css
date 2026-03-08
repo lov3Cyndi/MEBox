@@ -1,0 +1,37 @@
+/* 全局样式 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #app {
+  height: 100%;
+  width: 100%;
+}
+
+/* 守望先锋主题 - 蓝色 */
+.overwatch {
+  --primary-color: #0099cc;
+  --primary-hover: #00b3f0;
+  --bg-color: #0a0a0f;
+  --bg-secondary: #151520;
+  --bg-card: #1a1a25;
+  --text-primary: #ffffff;
+  --text-secondary: #a0a0b0;
+  --border-color: #2a2a3a;
+  --accent: #ffcc00;
+}
+
+/* 黑爪主题 - 红黑色 */
+.talion {
+  --primary-color: #cc0000;
+  --primary-hover: #ff0000;
+  --bg-color: #0a0a0a;
+  --bg-secondary: #151010;
+  --bg-card: #1a1010;
+  --text-primary: #ffffff;
+  --text-secondary: #a0a0a0;
+  --border-color: #3a1a1a;
+  --accent: #ff3333;
+}
