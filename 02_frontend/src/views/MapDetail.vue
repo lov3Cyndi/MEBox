@@ -15,7 +15,7 @@ const ratings = ref({ ratings: [], stats: {} })
 const loading = ref(true)
 const mapId = computed(() => route.params.id)
 
-const ratingForm = ref({ rating: 5, comment: '' })
+const ratingForm = ref({ overallRating: 5, comment: '' })
 
 onMounted(async () => {
   loading.value = true
@@ -62,7 +62,7 @@ function formatDate(date) { if (!date) return ''; return new Date(date).toLocale
         <div class="rating-section">
           <a-card title="我要评分" class="rating-form" v-if="userStore.token">
             <a-form layout="vertical">
-              <a-form-item label="评分"><a-rate v-model:value="ratingForm.rating" /></a-form-item>
+              <a-form-item label="评分"><a-rate v-model:value="ratingForm.overallRating" /></a-form-item>
               <a-form-item label="评价"><a-textarea v-model:value="ratingForm.comment" placeholder="写下你的评价..." :rows="4" /></a-form-item>
               <a-form-item><a-button type="primary" @click="submitRating">提交评分</a-button></a-form-item>
             </a-form>
