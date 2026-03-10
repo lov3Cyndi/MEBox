@@ -1,6 +1,7 @@
 <script setup>
 import { ref, onMounted, computed } from 'vue'
 import { useRoute } from 'vue-router'
+import { message } from 'ant-design-vue'
 import { heroApi } from '../api'
 import { useThemeStore } from '../stores/theme'
 import { useUserStore } from '../stores/user'
@@ -16,7 +17,7 @@ const loading = ref(true)
 const activeTab = ref('info')
 const heroId = computed(() => route.params.id)
 
-const ratingForm = ref({ overallRating: 5, damageRating: 5, utilityRating: 5, survivabilityRating: 5, comment: '' })
+const ratingForm = ref({ overallRating: 5, damageRating: 5, utilityRating: 5, survivalRating: 5, comment: '' })
 
 onMounted(async () => {
   loading.value = true
@@ -30,9 +31,19 @@ onMounted(async () => {
 })
 
 async function submitRating() {
-  if (!userStore.token) return
-  try { await heroApi.rate(heroId.value, ratingForm.value); const res = await heroApi.getRatings(heroId.value); ratings.value = res.data; }
-  catch (e) { console.error(e) }
+  if (!userStore.token) {
+    message.warning('请先登录后再评分')
+    return
+  }
+  try {
+    await heroApi.rate(heroId.value, ratingForm.value)
+    message.success('评分提交成功')
+    const res = await heroApi.getRatings(heroId.value)
+    ratings.value = res.data
+  } catch (e) {
+    console.error(e)
+    message.error(e.response?.data?.message || '评分提交失败')
+  }
 }
 
 function formatDate(date) { if (!date) return ''; return new Date(date).toLocaleDateString('zh-CN') }

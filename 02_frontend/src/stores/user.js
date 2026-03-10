@@ -30,8 +30,10 @@ export const useUserStore = defineStore('user', () => {
 
   async function register(username, email, password) {
     const res = await api.post('/auth/register', { username, email, password })
-    setToken(res.data.token)
-    await fetchUser()
+    if (res.data.token) {
+      setToken(res.data.token)
+      await fetchUser()
+    }
     return res.data
   }
 

@@ -3,7 +3,8 @@ import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { videoApi, heroApi, mapApi } from '../api'
 import { useUserStore } from '../stores/user'
-import { message, UploadOutlined } from 'ant-design-vue'
+import { message } from 'ant-design-vue'
+import { UploadOutlined } from '@ant-design/icons-vue'
 
 const router = useRouter()
 const userStore = useUserStore()

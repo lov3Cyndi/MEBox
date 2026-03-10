@@ -2,6 +2,7 @@ package org.cyndi.backend.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.cyndi.backend.dto.AuthResponse;
 import org.cyndi.backend.dto.LoginRequest;
 import org.cyndi.backend.dto.RegisterRequest;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class AuthServiceImpl implements AuthService {
 
     private final UserMapper userMapper;
@@ -55,5 +57,24 @@ public class AuthServiceImpl implements AuthService {
 
         String token = jwtUtil.generateToken(user.getId(), user.getUsername());
         return new AuthResponse(token, user.getId(), user.getUsername(), user.getEmail(), user.getAvatar(), user.getTheme());
+    }
+
+    @Override
+    public void resetPassword(String username, String newPassword) {
+        log.info("重置密码请求 - username: {}", username);
+        LambdaQueryWrapper<User> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(User::getUsername, username)
+               .or()
+               .eq(User::getEmail, username);
+        User user = userMapper.selectOne(wrapper);
+
+        if (user == null) {
+            log.warn("用户不存在 - username: {}", username);
+            throw new RuntimeException("用户不存在");
+        }
+
+        user.setPassword(passwordEncoder.encode(newPassword));
+        userMapper.updateById(user);
+        log.info("密码重置成功 - username: {}", username);
     }
 }

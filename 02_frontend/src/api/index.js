@@ -15,6 +15,7 @@ api.interceptors.request.use((config) => {
 export const authApi = {
   login: (data) => api.post('/auth/login', data),
   register: (data) => api.post('/auth/register', data),
+  resetPassword: (data) => api.post('/auth/reset-password', data),
 }
 
 export const heroApi = {
