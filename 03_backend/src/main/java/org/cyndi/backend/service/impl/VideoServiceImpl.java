@@ -3,6 +3,7 @@ package org.cyndi.backend.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.cyndi.backend.dto.CommentRequest;
 import org.cyndi.backend.dto.VideoRequest;
 import org.cyndi.backend.entity.Comment;
@@ -19,6 +20,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class VideoServiceImpl implements VideoService {
 
     private final VideoMapper videoMapper;
@@ -120,11 +122,13 @@ public class VideoServiceImpl implements VideoService {
 
     @Override
     public Comment addComment(Long videoId, Long userId, CommentRequest request) {
+        log.info("添加评论 - videoId: {}, userId: {}, content: {}", videoId, userId, request.getContent());
         Comment comment = new Comment();
         comment.setVideoId(videoId);
         comment.setUserId(userId);
         comment.setContent(request.getContent());
         commentMapper.insert(comment);
+        log.info("评论添加成功 - id: {}", comment.getId());
         return comment;
     }
 }

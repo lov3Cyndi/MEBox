@@ -1,6 +1,7 @@
 <script setup>
 import { ref, onMounted, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import { message } from 'ant-design-vue'
 import { videoApi } from '../api'
 import { useUserStore } from '../stores/user'
 import { HeartOutlined, HeartFilled, UserOutlined, EyeOutlined } from '@ant-design/icons-vue'
@@ -31,9 +32,20 @@ async function toggleLike() {
 
 async function submitComment() {
   if (!userStore.token) { router.push('/login'); return }
-  if (!commentText.value.trim()) return
-  try { await videoApi.addComment(videoId.value, { content: commentText.value }); commentText.value = ''; const res = await videoApi.getComments(videoId.value); comments.value = res.data || []; }
-  catch (e) { console.error(e) }
+  if (!commentText.value.trim()) {
+    message.warning('请输入评论内容')
+    return
+  }
+  try {
+    await videoApi.addComment(videoId.value, { content: commentText.value })
+    message.success('评论发布成功')
+    commentText.value = ''
+    const res = await videoApi.getComments(videoId.value)
+    comments.value = res.data || []
+  } catch (e) {
+    console.error(e)
+    message.error(e.response?.data?.message || '评论发布失败')
+  }
 }
 
 function formatDate(date) { if (!date) return ''; return new Date(date).toLocaleDateString('zh-CN') }
