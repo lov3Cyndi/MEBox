@@ -16,14 +16,16 @@ public class UserDetailsImpl implements UserDetails {
     private Long id;
     private String username;
     private String password;
+    private String role;
 
-    public static UserDetailsImpl build(Long id, String username, String password) {
-        return new UserDetailsImpl(id, username, password);
+    public static UserDetailsImpl build(Long id, String username, String password, String role) {
+        return new UserDetailsImpl(id, username, password, role);
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER"));
+        String roleStr = (role != null && !role.isEmpty()) ? role : "USER";
+        return Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + roleStr));
     }
 
     @Override

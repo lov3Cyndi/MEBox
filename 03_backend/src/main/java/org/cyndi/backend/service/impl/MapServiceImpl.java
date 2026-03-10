@@ -65,4 +65,26 @@ public class MapServiceImpl implements MapService {
         }
         return rating;
     }
+
+    @Override
+    public GameMap createMap(GameMap map) {
+        mapMapper.insert(map);
+        return map;
+    }
+
+    @Override
+    public GameMap updateMap(Long id, GameMap map) {
+        GameMap existingMap = mapMapper.selectById(id);
+        if (existingMap == null) {
+            throw new RuntimeException("地图不存在");
+        }
+        map.setId(id);
+        mapMapper.updateById(map);
+        return mapMapper.selectById(id);
+    }
+
+    @Override
+    public void deleteMap(Long id) {
+        mapMapper.deleteById(id);
+    }
 }

@@ -119,4 +119,26 @@ public class HeroServiceImpl implements HeroService {
         heroMediaMapper.insert(media);
         return media;
     }
+
+    @Override
+    public Hero createHero(Hero hero) {
+        heroMapper.insert(hero);
+        return hero;
+    }
+
+    @Override
+    public Hero updateHero(Long id, Hero hero) {
+        Hero existingHero = heroMapper.selectById(id);
+        if (existingHero == null) {
+            throw new RuntimeException("英雄不存在");
+        }
+        hero.setId(id);
+        heroMapper.updateById(hero);
+        return heroMapper.selectById(id);
+    }
+
+    @Override
+    public void deleteHero(Long id) {
+        heroMapper.deleteById(id);
+    }
 }

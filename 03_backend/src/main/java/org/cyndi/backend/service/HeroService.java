@@ -19,4 +19,7 @@ public interface HeroService {
     Rating rateHero(Long heroId, Long userId, RatingRequest request);
     List<HeroMedia> getMedia(Long heroId);
     HeroMedia addMedia(Long heroId, HeroMediaRequest request);
+    Hero createHero(Hero hero);
+    Hero updateHero(Long id, Hero hero);
+    void deleteHero(Long id);
 }

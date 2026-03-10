@@ -12,6 +12,7 @@ import {
   UploadOutlined,
   SwapOutlined,
   LogoutOutlined,
+  SettingOutlined,
 } from '@ant-design/icons-vue'
 
 const router = useRouter()
@@ -20,6 +21,10 @@ const themeStore = useThemeStore()
 const userStore = useUserStore()
 
 const themeClass = computed(() => themeStore.theme)
+
+const isAdmin = computed(() => {
+  return userStore.user?.role === 'ADMIN'
+})
 
 const navItems = [
   { key: '/', icon: HomeOutlined, label: '首页' },
@@ -94,6 +99,21 @@ function toggleTheme() {
             <a-button type="text" class="user-btn" @click="goUpload">
               <UploadOutlined /> 上传
             </a-button>
+            <a-dropdown v-if="isAdmin">
+              <a-button type="text" class="user-btn">
+                <SettingOutlined /> 管理
+              </a-button>
+              <template #overlay>
+                <a-menu>
+                  <a-menu-item key="admin-heroes" @click="router.push('/admin/heroes')">
+                    英雄管理
+                  </a-menu-item>
+                  <a-menu-item key="admin-maps" @click="router.push('/admin/maps')">
+                    地图管理
+                  </a-menu-item>
+                </a-menu>
+              </template>
+            </a-dropdown>
             <a-button type="text" class="user-btn" @click="goProfile">
               <UserOutlined /> {{ userStore.user?.username || '用户' }}
             </a-button>

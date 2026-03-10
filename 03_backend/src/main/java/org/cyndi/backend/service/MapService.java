@@ -12,4 +12,7 @@ public interface MapService {
     GameMap getMap(Long id);
     List<Rating> getRatings(Long mapId);
     Rating rateMap(Long mapId, Long userId, RatingRequest request);
+    GameMap createMap(GameMap map);
+    GameMap updateMap(Long id, GameMap map);
+    void deleteMap(Long id);
 }

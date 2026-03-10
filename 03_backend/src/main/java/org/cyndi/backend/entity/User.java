@@ -20,6 +20,8 @@ public class User {
 
     private String theme;
 
+    private String role = "USER";
+
     @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createTime;
 

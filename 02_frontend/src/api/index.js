@@ -26,6 +26,9 @@ export const heroApi = {
   getMedia: (id) => api.get(`/heroes/${id}/media`),
   addMedia: (id, data) => api.post(`/heroes/${id}/media`, data),
   getRoles: () => api.get('/heroes/roles'),
+  create: (data) => api.post('/heroes', data),
+  update: (id, data) => api.put(`/heroes/${id}`, data),
+  delete: (id) => api.delete(`/heroes/${id}`),
 }
 
 export const mapApi = {
@@ -33,6 +36,9 @@ export const mapApi = {
   get: (id) => api.get(`/maps/${id}`),
   getRatings: (id) => api.get(`/maps/${id}/ratings`),
   rate: (id, data) => api.post(`/maps/${id}/rate`, data),
+  create: (data) => api.post('/maps', data),
+  update: (id, data) => api.put(`/maps/${id}`, data),
+  delete: (id) => api.delete(`/maps/${id}`),
 }
 
 export const videoApi = {

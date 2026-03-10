@@ -10,6 +10,8 @@ import VideoUpload from '../views/VideoUpload.vue'
 import Profile from '../views/Profile.vue'
 import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
+import AdminHero from '../views/AdminHero.vue'
+import AdminMap from '../views/AdminMap.vue'
 
 const routes = [
   { path: '/', name: 'Home', component: Home },
@@ -23,6 +25,8 @@ const routes = [
   { path: '/profile', name: 'Profile', component: Profile },
   { path: '/login', name: 'Login', component: Login },
   { path: '/register', name: 'Register', component: Register },
+  { path: '/admin/heroes', name: 'AdminHero', component: AdminHero },
+  { path: '/admin/maps', name: 'AdminMap', component: AdminMap },
 ]
 
 const router = createRouter({

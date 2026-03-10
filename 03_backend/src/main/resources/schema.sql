@@ -11,6 +11,7 @@ CREATE TABLE IF NOT EXISTS users (
     password VARCHAR(255) NOT NULL,
     avatar VARCHAR(500),
     theme VARCHAR(20) DEFAULT 'overwatch',
+    role VARCHAR(20) DEFAULT 'USER',
     create_time DATETIME DEFAULT CURRENT_TIMESTAMP,
     update_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
@@ -123,6 +124,10 @@ CREATE TABLE IF NOT EXISTS video_likes (
 );
 
 -- Sample Data
+-- 默认管理员账户: admin / admin123 (角色为 ADMIN)
+INSERT INTO users (username, email, password, role) VALUES
+('admin', 'admin@mebox.com', '$2a$10$N.zmdr9k7uOCQb376NoUnuTJ8iAt6Z5EHsM8lE9lBOsl7iKTVKIUi', 'ADMIN');
+
 INSERT INTO heroes (name, role, description, portrait) VALUES
 ('D.va', '支援型', '韩国釜山的顶尖机甲驾驶员', 'https://ow.blizzard.cn/static/images/heroes/dva-portrait.png'),
 ('士兵：76', '输出型', '神秘守望先锋成员的复仇之路', 'https://ow.blizzard.cn/static/images/heroes/soldier-76-portrait.png'),
